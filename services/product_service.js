@@ -53,3 +53,25 @@ async function replaceProduct(id, data) {
 
     return products[index]
 }
+
+// PATCH: update a product
+async function updateProduct(id, data) {
+    const products = await getAllProducts()
+
+    const index = products.findIndex(
+        item => item.id === Number(id)
+    )
+
+    if (index === -1) {
+        return null
+    }
+
+    products[index] = {
+        ...products[index],
+        ...data
+    }
+
+    await writeProducts(products)
+
+    return products[index]
+}
