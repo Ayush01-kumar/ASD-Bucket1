@@ -75,3 +75,31 @@ async function updateProduct(id, data) {
 
     return products[index]
 }
+
+// DELETE: delete a product
+async function deleteProduct(id) {
+    const products = await getAllProducts()
+
+    const index = products.findIndex(
+        item => item.id === Number(id)
+    )
+
+    if (index === -1) {
+        return null
+    }
+
+    const deleted = products.splice(index, 1)
+
+    await writeProducts(products)
+
+    return deleted[0]
+}
+
+module.exports = {
+    getProducts,
+    getProduct,
+    createProduct,
+    replaceProduct,
+    updateProduct,
+    deleteProduct
+}
